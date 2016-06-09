@@ -1,0 +1,502 @@
+
+<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+
+<%@page import="com.amazonaws.services.ec2.model.InstanceCount"%>
+<%@page import="com.cohifi.dao.jdbc.UserDaoJdbcImpl"%>
+<%@page
+	import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<c:set var="context" scope="request"
+	value="<%=request.getContextPath()%>" />
+<%@ page import="java.util.List"%>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Mobile Cloud MIaaS</title>
+
+<!-- Bootstrap CSS -->
+<link href="${context}/resources/includes/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${context}/resources/includes/css/bootstrap-glyphicons.css"
+	rel="stylesheet">
+<!-- Custom CSS -->
+<link href="${context}/resources/includes/css/styles.css"
+	rel="stylesheet">
+<!-- jQuery -->
+<script src="${context}/resources/includes/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="${context}/resources/includes/js/bootstrap.min.js"></script>
+<!-- Include Modernizr in the head, before any other Javascript -->
+<script src="${context}/resources/includes/js/modernizr-2.6.2.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script
+	src="${context}/resources/includes/js/plugins/morris/raphael.min.js"></script>
+<script
+	src="${context}/resources/includes/js/plugins/morris/morris.min.js"></script>
+<script
+	src="${context}/resources/includes/js/plugins/morris/morris-data.js"></script>
+
+<!-- Bootstrap Core CSS -->
+
+<!-- Custom CSS -->
+<link href="${context}/resources/includes/css/sb-admin.css"
+	rel="stylesheet">
+
+<!-- Morris Charts CSS -->
+<link href="${context}/resources/includes/css/plugins/morris.css"
+	rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link
+	href="${context}/resources/includes/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+	<%
+		
+	%>
+
+	<div id="wrapper">
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="${context}/index">Admin</a>
+		</div>
+		<!-- Top Menu Items -->
+		<ul class="nav navbar-right top-nav">
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown"><i class="fa fa-envelope"></i> <b
+					class="caret"></b></a>
+				<ul class="dropdown-menu message-dropdown">
+					<li class="message-preview"><a href="#">
+							<div class="media">
+								<span class="pull-left"> <img class="media-object"
+									src="http://placehold.it/50x50" alt="">
+								</span>
+								<div class="media-body">
+									<h5 class="media-heading">
+										<strong>Adminstrator</strong>
+									</h5>
+									<p class="small text-muted">
+										<i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
+									</p>
+									<p>Lorem ipsum dolor sit amet, consectetur...</p>
+								</div>
+							</div>
+					</a></li>
+					<li class="message-preview"><a href="#">
+							<div class="media">
+								<span class="pull-left"> <img class="media-object"
+									src="http://placehold.it/50x50" alt="">
+								</span>
+								<div class="media-body">
+									<h5 class="media-heading">
+										<strong>Admin</strong>
+									</h5>
+									<p class="small text-muted">
+										<i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
+									</p>
+									<p>Lorem ipsum dolor sit amet, consectetur...</p>
+								</div>
+							</div>
+					</a></li>
+					<li class="message-preview"><a href="#">
+							<div class="media">
+								<span class="pull-left"> <img class="media-object"
+									src="http://placehold.it/50x50" alt="">
+								</span>
+								<div class="media-body">
+									<h5 class="media-heading">
+										<strong>Admin</strong>
+									</h5>
+									<p class="small text-muted">
+										<i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
+									</p>
+									<p>Lorem ipsum dolor sit amet, consectetur...</p>
+								</div>
+							</div>
+					</a></li>
+					<li class="message-footer"><a href="#">Read All New
+							Messages</a></li>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown"><i class="fa fa-bell"></i> <b
+					class="caret"></b></a>
+				<ul class="dropdown-menu alert-dropdown">
+					<li><a href="#">Alert Name <span
+							class="label label-default">Alert Badge</span></a></li>
+					<li><a href="#">Alert Name <span
+							class="label label-primary">Alert Badge</span></a></li>
+					<li><a href="#">Alert Name <span
+							class="label label-success">Alert Badge</span></a></li>
+					<li><a href="#">Alert Name <span class="label label-info">Alert
+								Badge</span></a></li>
+					<li><a href="#">Alert Name <span
+							class="label label-warning">Alert Badge</span></a></li>
+					<li><a href="#">Alert Name <span
+							class="label label-danger">Alert Badge</span></a></li>
+					<li class="divider"></li>
+					<li><a href="#">View All</a></li>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b
+					class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+					<li><a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+					</li>
+					<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+					</li>
+					<li class="divider"></li>
+					<li><a href="http://localhost:8080/courseapp"><i class="fa fa-fw fa-power-off"></i> Log
+							Out</a></li>
+				</ul></li>
+		</ul>
+		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav side-nav">
+				<li class="active"><a href="${context}/index"><i
+						class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+				<li><form action="${context}/generator" method="post">
+						<a href="javascript:;" onclick="parentNode.submit();"><i
+							class="fa fa-fw fa-bar-chart-o"></i>
+							<div>Dynamic Request Generator....</div> </a>
+					</form></li>
+				<li><a href="${context}/loadChart"><i
+							class="fa fa-fw fa-table"></i> Bills </a>
+					</form></li>
+						<li>
+						<a href="${context}/clouds"><i
+							class="fa fa-fw fa-table"></i> Clouds </a>
+					</li>
+						<li>
+						<a href="${context}/instances"><i
+							class="fa fa-fw fa-table"></i> Instances </a>
+					</li>
+						<li>
+						<a href="${context}/users"><i
+							class="fa fa-fw fa-table"></i> Users </a>
+					</li>
+						<li>
+						<a href="${context}/rates"><i
+							class="fa fa-fw fa-table"></i> Rates </a>
+					</li>
+					<li>
+						<a href="${context}/monitoring"><i
+							class="fa fa-fw fa-table"></i>CPU Monitoring </a>
+					</li>
+					<li>
+						<a href="${context}/networkin"><i
+							class="fa fa-fw fa-table"></i>Network In Monitoring </a>
+					</li>
+					<li>
+						<a href="${context}/networkout"><i
+							class="fa fa-fw fa-table"></i>Network Out Monitoring </a>
+					</li>
+					<li>
+						<a href="${context}/diskread"><i
+							class="fa fa-fw fa-table"></i>Disk Read Monitoring </a>
+					</li>
+					<li>
+						<a href="${context}/diskwrite"><i
+							class="fa fa-fw fa-table"></i>Disk Write Monitoring </a>
+					</li>
+					
+				<%-- 				<li><form action="${context}/re" method="post">
+						<a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+					</form></li>
+				<li><a href="bootstrap-elements.html"><i
+						class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a></li>
+				<li><a href="bootstrap-grid.html"><i
+						class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a></li>
+				<li><a href="javascript:;" data-toggle="collapse"
+					data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
+						Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+					<ul id="demo" class="collapse">
+						<li><a href="#">Dropdown Item</a></li>
+						<li><a href="#">Dropdown Item</a></li>
+					</ul></li>
+				<li><a href="blank-page.html"><i class="fa fa-fw fa-file"></i>
+						Blank Page</a></li>
+				<li><a href="index-rtl.html"><i
+						class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a></li> --%>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse --> </nav>
+
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">
+							Dashboard : Mobile Cloud MIaaS Overview
+						</h1>
+						<ol class="breadcrumb">
+							<li class="active"><i class="fa fa-dashboard"></i> Dashboard
+							</li>
+						</ol>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-info alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">&times;</button>
+							<i class="fa fa-info-circle"></i> <strong>Like SB Admin?</strong>
+							Try out <a
+								href="http://startbootstrap.com/template-overviews/sb-admin-2"
+								class="alert-link">SB Admin 2</a> for additional features!
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-comments fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge"><%=0%></div>
+										<div class="huge">Clouds</div>
+									</div>
+								</div>
+							</div>
+							<a href="${context}/clouds">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-green">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-tasks fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge"><%=0%></div>
+										<div class="huge">Instances!</div>
+									</div>
+								</div>
+							</div>
+							<a href="${context}/instances">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-yellow">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="glyphicons glyphicons-fire"></i>
+										<i class="fa fa-money fa-fw"></i>
+										
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">
+											</div>
+										<div class="huge">Billing!</div>
+									</div>
+								</div>
+							</div>
+							<a href="${context}/loadChart">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-red">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-support fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge"><%=0%></div>
+										<div class="huge">Users!</div>
+									</div>
+								</div>
+							</div>
+							<a href="${context}/users">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+				<div class="main-temp-back">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-6">
+								<i class="fa fa-cloud fa-3x"></i> San Francisco
+							</div>
+							<div class="col-xs-6">
+								<div class="text-temp">50°F</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-bar-chart-o fa-fw"></i> Area Chart
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div id="morris-area-chart"></div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-long-arrow-right fa-fw"></i> Instance Details
+									Chart
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div id="morris-donut-chart"></div>
+								<div class="text-right">
+									<a href="${context}/instances">View Details <i
+										class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-clock-o fa-fw"></i> Cloud Details
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover table-striped">
+											<thead>
+												<tr>
+													<th>Cloud Id #</th>
+													<th>Geo Location</th>
+													<th>Cloud Name</th>
+													<th>Private IP:</th>
+													<th>Public IP:</th>
+												</tr>
+											</thead>
+
+
+										</table>
+									</div>
+									<div class="text-right">
+										<a href="${context}/clouds">View All <i
+											class="fa fa-arrow-circle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-money fa-fw"></i> Instance Details
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover table-striped">
+										<thead>
+											<tr>
+												<th>Cloud Id #</th>
+												<th>CPU</th>
+												<th>Memory(MB)</th>
+												<th>Instance Name</th>
+												<th>OS</th>
+												<th>Uptime</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<div class="text-right">
+									<a href="${context}/instances">View All  <i
+										class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+
+		</div>
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+	<script type="text/javascript">
+
+	</script>
+</body>
+
+</html>
