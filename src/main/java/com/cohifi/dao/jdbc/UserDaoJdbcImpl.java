@@ -19,8 +19,6 @@ import org.springframework.stereotype.Repository;
 import com.cohifi.dao.UserDAO;
 import com.cohifi.domain.User;
 
-
-
 @Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDAO {
 	@Autowired
@@ -30,16 +28,15 @@ public class UserDaoJdbcImpl implements UserDAO {
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedTemplate;
 	private SimpleJdbcInsert jdbcInsert;
-	
-	private UserRowMapper userRowMapper;
 
+	private UserRowMapper userRowMapper;
 
 	@PostConstruct
 	public void setup() {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		namedTemplate = new NamedParameterJdbcTemplate(dataSource);
-		jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("user")
-				    .usingColumns("userid", "name","creditcard","emailid", "phone", "totalbill" , "paidbill");
+		jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("user").usingColumns("u_id", "username",
+				"firstname", "lastname", "email", "address1", "password");
 		userRowMapper = new UserRowMapper();
 
 	}
@@ -53,30 +50,29 @@ public class UserDaoJdbcImpl implements UserDAO {
 	public void insertUser(List<User> listuser) {
 		for (User user : listuser) {
 			Map<String, Object> map = new HashMap<String, Object>();
-		/*	map.put("name", user.getName());
-			map.put("creditcard", user.getCreditcard());
-			map.put("emailid",user.getEmailid());
-			map.put("phone",user.getPhone());
-			map.put("totalbill",user.getTotalbill());
-			map.put("paidbill",user.getPaidbill());
+			// map.put("u_id", user.getU_id());
+			map.put("username", user.getUsername());
+			map.put("firstname", user.getFirstname());
+			map.put("lastname", user.getLastname());
+			map.put("email", user.getEmail());
+			map.put("address1", user.getAddress1());
+			map.put("address1", user.getPassword());
 			int newId = jdbcInsert.execute(map);
-			user.setUserid(newId);*/
+			user.setU_id(newId);
 		}
 	}
-	
 
 	@Override
 	public String findUserNameById(int id) {
-		String sql = "select name from user where userid=?";
+		String sql = "select username from user where userid=?";
 		return jdbcTemplate.queryForObject(sql, String.class, id);
 	}
 
 	@Override
 	public User findUserByName(String userName) {
 		int usersFound;
-		String sql = "select * from user where name=?";
-		List<User> userList = jdbcTemplate.query(sql, userRowMapper,
-				userName);
+		String sql = "select * from user where username=?";
+		List<User> userList = jdbcTemplate.query(sql, userRowMapper, userName);
 
 		usersFound = userList.size();
 		if (usersFound == 1) {
@@ -89,10 +85,7 @@ public class UserDaoJdbcImpl implements UserDAO {
 
 		}
 		return (User) userList;
-		// throw new
-		// ProductDaoException("Multiple users Found with Same Name");
 	}
-
 
 	@Override
 	public void deleteUser(int id) {
@@ -108,7 +101,6 @@ public class UserDaoJdbcImpl implements UserDAO {
 		return userList;
 	}
 
-	
 	@Override
 	public int updateBillOfAllUsers() {
 		String sql = "update user u set totalbill=(select sum(bill) from instance i where i.userid=u.userid)  ;";
@@ -124,13 +116,14 @@ public class UserDaoJdbcImpl implements UserDAO {
 		String sql = "select totalbill from user where userid=?";
 		return jdbcTemplate.queryForObject(sql, Double.class, userid);
 	}
-	
+
 	@Override
 	public double getTotalBillOfAllUsers() {
 		// TODO Auto-generated method stub
 		String sql = "select sum(totalbill) from user";
 		Double totalbill = jdbcTemplate.queryForObject(sql, Double.class);
-		if(totalbill==null) totalbill = 0.0;
+		if (totalbill == null)
+			totalbill = 0.0;
 		return Double.parseDouble(new DecimalFormat("#.##").format(totalbill.doubleValue()));
 	}
 

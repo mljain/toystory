@@ -61,8 +61,8 @@
             <h1 class="text-center login-title">Cohifi</h1>
             <div class="account-wall">
                 <form class="form-signin" action="${context}/index" method="post" >
-                <input type="text" class="form-control" placeholder="Email" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
+                <input type="text" class="form-control" placeholder="Email"  name="email">
+                <input type="password" class="form-control" placeholder="Password" name="password">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
                 <label class="checkbox pull-left">
